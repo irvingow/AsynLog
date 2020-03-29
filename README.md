@@ -1,6 +1,6 @@
 #### 异步日志库
 
-参考muduo的实现,感觉陈硕能分享这么值得学习的项目，自己学习了一下并动手实现了，同时根据自己的理解来做了一些解释，
+参考muduo的实现,感谢陈硕能分享这么值得学习的项目，自己学习了一下并动手实现了，同时根据自己的理解来做了一些解释，
 同时做了一些微不足道的改动
 
 #### 简单介绍
@@ -41,4 +41,4 @@ LogStream内部buffer的时候还需要计算这些预定义宏的长度，提�
 ##### num2String.h/cpp
 
 这里我做了一些微小的改动，我参考了miloyip的项目 [itoa-benchmark](https://github.com/miloyip/itoa-benchmark)，
-使用了branchlut来将数据转化为字符串,这里再次感谢miloyip
+使用了branchlut来将数字转化为字符串,这里再次感谢miloyip
