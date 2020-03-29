@@ -3,6 +3,8 @@
 //
 
 #include "fileUtil.h"
+#include <cassert>
+#include <cstring>
 
 using namespace AsynLog;
 

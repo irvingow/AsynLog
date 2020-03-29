@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "logStream.h"
+#include <climits>
 
 using namespace AsynLog;
 using std::cout;

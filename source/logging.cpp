@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <time.h>
 #include <sys/time.h>
+#include <inttypes.h>
 
 namespace AsynLog {
 
@@ -130,12 +131,12 @@ void Logger::InsideHelper::formatTime() {
     }
     logStream_ << FixedLenCharArr(t_time, t_time_len);
     char buf[12] = {0};
-    int len = snprintf(buf, sizeof(buf), ".%06lld ", microSeconds);
+    int len = snprintf(buf, sizeof(buf), ".%06" PRId64, microSeconds);
     if(len < 0){
         logStream_ << "snprintf error = " << strerror(errno) ;
         return;
     }
-    logStream_ << FixedLenCharArr(buf, len);
+    logStream_ << FixedLenCharArr(buf, len) << ' ';
 }
 
 void Logger::InsideHelper::finish() {

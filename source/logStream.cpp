@@ -4,6 +4,7 @@
 
 #include "logStream.h"
 #include "num2String.h"
+#include <algorithm>
 
 using namespace AsynLog;
 

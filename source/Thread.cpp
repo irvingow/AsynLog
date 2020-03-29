@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include "Thread.h"
 #include "currentThread.h"
+#include <cassert>
+#include <inttypes.h>
 
 namespace AsynLog{
 
@@ -37,7 +39,7 @@ uint64_t gettid() {
 void CurrentThread::getCacheTid() {
   if (cachedTid == 0) {
     cachedTid = gettid();
-    tidStrLen = snprintf(tid2Str, sizeof(tid2Str), "%5llu", cachedTid);
+    tidStrLen = snprintf(tid2Str, sizeof(tid2Str), "%5" PRId64, cachedTid);
   }
 }
 
@@ -80,7 +82,7 @@ void* startThread(void* obj) {
   return nullptr;
 }
 
-std::atomic_int32_t Thread::counts_;
+std::atomic<int32_t> Thread::counts_;
 
 Thread::Thread(AsynLog::Thread::ThreadFunc func, void* user_data,
                std::string name)
