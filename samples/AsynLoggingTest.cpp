@@ -8,14 +8,14 @@
 #include "asynLogging.h"
 #include "logging.h"
 
-size_t RollSize = 40 * 1000 * 1000;
+size_t RollSize = 500 * 1000 * 1000;
 AsynLog::asynLogging *g_asynlog = nullptr;
 
 void asynOutput(const char *msg, size_t len) { g_asynlog->append(msg, len); }
 
 void benchTest() {
   AsynLog::Logger::setOutput(asynOutput);
-  int cnt = 0, batch = 2000;
+  int cnt = 0, batch = 20000;
   for (int count = 0; count < 30; ++count) {
     std::chrono::steady_clock::time_point start =
         std::chrono::steady_clock::now();
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
   std::cout << "pid = " << getpid() << std::endl;
   char name[256] = {0};
   strncpy(name, argv[0], sizeof(name) - 1);
-  AsynLog::asynLogging asynLog(name, RollSize, 1);
+  AsynLog::asynLogging asynLog(name, RollSize);
   g_asynlog = &asynLog;
   asynLog.start();
   benchTest();

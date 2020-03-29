@@ -38,10 +38,9 @@ class Logger {
       }
     }
 
-    // explicit PreDefineMacroHelper(const char *name) : data_(name) {
-    //   size_ = strlen(data_);
-    //   std::cout << "explict constructor called" << std::endl;
-    // }
+//     explicit PreDefineMacroHelper(const char *name) : data_(name) {
+//       size_ = strlen(data_);
+//     }
     const char* data_;
     size_t size_;
   };
@@ -50,6 +49,7 @@ class Logger {
          int line, LogLevel level);
   Logger(PreDefineMacroHelper fileName, PreDefineMacroHelper functionName,
          int line, bool toAbort);
+//  Logger(const char* fileName, const char* functionName, int line, LogLevel level);
   ~Logger();
 
   LogStream& stream() { return insideHelper_.logStream_; }
@@ -68,6 +68,7 @@ class Logger {
     InsideHelper(PreDefineMacroHelper fileName,
                  PreDefineMacroHelper functionName, int line, LogLevel level,
                  int);
+//    InsideHelper(const char* fileName, const char* functionName, int line, LogLevel level, int );
     void formatTime();
     void finish();
 
