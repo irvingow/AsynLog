@@ -38,7 +38,7 @@ class Thread : noncopyable {
   Waiter waiter_;
   void* user_data_;
 
-  static std::atomic_int32_t counts_;
+  static std::atomic<int32_t> counts_;
 };
 
 }  // namespace AsynLog
