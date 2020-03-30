@@ -96,7 +96,7 @@ short u32toa(uint32_t value, char *buffer) {
         *buffer++ = gDigitsLut[d4];
         *buffer++ = gDigitsLut[d4 + 1];
     }
-    *buffer++ = '\0';
+//    *buffer++ = 0;
     return static_cast<short>(buffer - tmp);
 }
 
@@ -108,8 +108,8 @@ short i32toa(int32_t value, char *buffer) {
         u = ~u + 1;
     }
 
-    u32toa(u, buffer);
-    return static_cast<short>(buffer - tmp);
+    short len = u32toa(u, buffer);
+    return static_cast<short>(buffer - tmp) + len;
 }
 
 short u64toa(uint64_t value, char *buffer) {
@@ -249,19 +249,19 @@ short u64toa(uint64_t value, char *buffer) {
         *buffer++ = gDigitsLut[d8 + 1];
     }
 
-    *buffer = '\0';
+//    *buffer++ = 0;
     return static_cast<short>(buffer - tmp);
 }
 
 short i64toa(int64_t value, char *buffer) {
-    char *tmp;
+    char *tmp = buffer;
     uint64_t u = static_cast<uint64_t>(value);
     if (value < 0) {
         *buffer++ = '-';
         u = ~u + 1;
     }
-    u64toa(u, buffer);
-    return static_cast<short>(buffer - tmp);
+    auto len = u64toa(u, buffer);
+    return static_cast<short>(buffer - tmp) + len;
 }
 
 }  // namespace Util

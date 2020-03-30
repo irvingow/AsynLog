@@ -61,8 +61,10 @@ LogStream &LogStream::operator<<(unsigned short val) {
 }
 
 LogStream &LogStream::operator<<(int val) {
-    if (buffer_.avail() < MaxNumericSize)
+    if (buffer_.avail() < MaxNumericSize) {
+        printf("buffer space not enough\n");
         return *this;
+    }
     char *buf = buffer_.current();
     if (sizeof(int) == 2) {
         auto len = Util::i16toa(val, buf);
