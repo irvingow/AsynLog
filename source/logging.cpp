@@ -64,21 +64,21 @@ void defaultFlush() { fflush(stdout); }
 Logger::OutputFunc AOutput = defaultOutput;
 Logger::FlushFunc AFlush = defaultFlush;
 
-Logger::Logger(AsynLog::Logger::PreDefineMacroHelper fileName,
-               AsynLog::Logger::PreDefineMacroHelper functionName, int line,
-               AsynLog::Logger::LogLevel level)
-    : insideHelper_(fileName, functionName, line, level, 0) {}
+//Logger::Logger(AsynLog::Logger::PreDefineMacroHelper fileName,
+//               AsynLog::Logger::PreDefineMacroHelper functionName, int line,
+//               AsynLog::Logger::LogLevel level)
+//    : insideHelper_(fileName, functionName, line, level, 0) {}
+
+//Logger::Logger(AsynLog::Logger::PreDefineMacroHelper fileName,
+//               AsynLog::Logger::PreDefineMacroHelper functionName, int line,
+//               bool toAbort)
+//    : insideHelper_(fileName, functionName, line, toAbort ? FATAL : ERROR,
+//                    errno) {}
 
 Logger::Logger(AsynLog::Logger::PreDefineMacroHelper fileName,
-               AsynLog::Logger::PreDefineMacroHelper functionName, int line,
-               bool toAbort)
-    : insideHelper_(fileName, functionName, line, toAbort ? FATAL : ERROR,
-                    errno) {}
-
-//Logger::Logger(const char *fileName,
-//               const char *functionName,
-//               int line,
-//               AsynLog::Logger::LogLevel level) :insideHelper_(fileName, functionName, line, level, 0) {}
+               const char *functionName,
+               int line,
+               AsynLog::Logger::LogLevel level) :insideHelper_(fileName, functionName, line, level, 0) {}
 
 Logger::~Logger() {
     insideHelper_.finish();
@@ -107,7 +107,7 @@ int64_t getNowTime() {
 
 Logger::InsideHelper::InsideHelper(
     AsynLog::Logger::PreDefineMacroHelper fileName,
-    AsynLog::Logger::PreDefineMacroHelper functionName, int line,
+    const char* functionName, int line,
     AsynLog::Logger::LogLevel level, int last_errno)
     : fileName_(fileName),
       functionName_(functionName),

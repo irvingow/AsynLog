@@ -45,11 +45,11 @@ class Logger {
     size_t size_;
   };
 
-  Logger(PreDefineMacroHelper fileName, PreDefineMacroHelper functionName,
-         int line, LogLevel level);
-  Logger(PreDefineMacroHelper fileName, PreDefineMacroHelper functionName,
-         int line, bool toAbort);
-//  Logger(const char* fileName, const char* functionName, int line, LogLevel level);
+//  Logger(PreDefineMacroHelper fileName, PreDefineMacroHelper functionName,
+//         int line, LogLevel level);
+//  Logger(PreDefineMacroHelper fileName, PreDefineMacroHelper functionName,
+//         int line, bool toAbort);
+  Logger(PreDefineMacroHelper fileName, const char* functionName, int line, LogLevel level);
   ~Logger();
 
   LogStream& stream() { return insideHelper_.logStream_; }
@@ -65,16 +65,18 @@ class Logger {
   class InsideHelper {
    public:
     typedef Logger::LogLevel LogLevel;
-    InsideHelper(PreDefineMacroHelper fileName,
-                 PreDefineMacroHelper functionName, int line, LogLevel level,
-                 int);
-//    InsideHelper(const char* fileName, const char* functionName, int line, LogLevel level, int );
+//    InsideHelper(PreDefineMacroHelper fileName,
+//                 PreDefineMacroHelper functionName, int line, LogLevel level,
+//                 int);
+    InsideHelper(PreDefineMacroHelper fileName, const char* functionName, int line, LogLevel level, int );
     void formatTime();
     void finish();
 
     LogStream logStream_;
+//    PreDefineMacroHelper fileName_;
+//    PreDefineMacroHelper functionName_;
     PreDefineMacroHelper fileName_;
-    PreDefineMacroHelper functionName_;
+    const char* functionName_;
     int line_;
     LogLevel level_;
     int64_t curtime_;

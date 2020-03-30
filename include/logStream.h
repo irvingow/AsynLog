@@ -20,20 +20,21 @@ const int LargeBuffer = 4000 * 1000;
 template <int SIZE>
 class FixedSizeBuffer : noncopyable {
  public:
-  FixedSizeBuffer() : cur_(data_) {}
+  FixedSizeBuffer() : cur_(data_), written_(0) {}
   ~FixedSizeBuffer() = default;
   void append(const char* buf, size_t len) {
     /// if len is too big, we just append partially
     int size = std::min(len, avail());
     memmove(cur_, buf, size);
     cur_ += size;
+    written_ += size;
   }
   const char* data() const { return data_; }
-  size_t length() const { return cur_ - data_; }
+  size_t length() const { return written_; }
   char* current() const { return cur_; }
-  size_t avail() const { return end() - cur_; }
-  void add(size_t len) { cur_ += len; }
-  void reset() { cur_ = data_; }
+  size_t avail() const { return SIZE - written_; }
+  void add(size_t len) { cur_ += len; written_ += len;}
+  void reset() { cur_ = data_; written_ = 0;}
   void setZero() { bzero(data_, sizeof(data_)); }
   std::string toString() const { return std::string(data_, length()); }
   const char* peekBuffer() const{
@@ -45,6 +46,7 @@ class FixedSizeBuffer : noncopyable {
   const char* end() const { return data_ + sizeof(data_); }
   char data_[SIZE] = {0};
   char* cur_;
+  int64_t written_;
 };
 
 }  // namespace Util
