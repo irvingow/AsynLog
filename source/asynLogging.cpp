@@ -45,7 +45,6 @@ void asynLogging::append(const char *logOneLine, int len) {
             ///if your system dont support c++14, use reset to replace this
         }
         currentBuffer_->append(logOneLine, static_cast<size_t >(len));
-        printf("notify backend thread to work");
         cond_.notify_all();
     }
 }
@@ -68,7 +67,7 @@ void asynLogging::threadFunc() {
         {
             std::unique_lock<std::mutex> lck(mutex_);
             if(buffers_.empty()){
-                cond_.wait_for(lck, flushIntervalSeconds_*sec, [=]{return !buffers_.empty();});
+                cond_.wait_for(lck, flushIntervalSeconds_*sec, [&]{return !buffers_.empty() || !running_;});
             }
             ///当调用到这里时，不论因为超时还是条件变量的唤醒，都需要讲currentBuffer_中的内容加入
             ///待写入的buffers_

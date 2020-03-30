@@ -15,7 +15,7 @@ void asynOutput(const char *msg, size_t len) { g_asynlog->append(msg, len); }
 
 void benchTest() {
   AsynLog::Logger::setOutput(asynOutput);
-  int cnt = 0, batch = 20000;
+  int cnt = 0, batch = 2000;
   for (int count = 0; count < 30; ++count) {
     std::chrono::steady_clock::time_point start =
         std::chrono::steady_clock::now();
