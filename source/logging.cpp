@@ -131,7 +131,7 @@ Logger::InsideHelper::InsideHelper(
 ///we use thread_cached seconds to avoid format time
 ///when logs are generated in the same second
 void Logger::InsideHelper::formatTime() {
-    int64_t seconds = curtime_ / MicroSecondsPerSecond;
+    time_t seconds = curtime_ / MicroSecondsPerSecond;
     int64_t microSeconds = curtime_ % MicroSecondsPerSecond;
     if (seconds != t_lastSecond) {
         t_lastSecond = seconds;
